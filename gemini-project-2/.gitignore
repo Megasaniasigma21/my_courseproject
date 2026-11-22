@@ -1,0 +1,7 @@
+data/profile.key
+data/*.db*
+data/*.log
+__pycache__/
+.pytest_cache/
+integration-staging/python/
+integration-staging/android-before-server-auth/
