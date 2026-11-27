@@ -1,4 +1,5 @@
 """Android catalogue backed by the same movie records as the main API."""
+from typing import Literal
 from urllib.parse import urljoin
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -30,9 +31,16 @@ def category_names(db: Session) -> dict:
 
 
 @router.get("/films")
-def films(request: Request, db: Session = Depends(get_db)):
-    categories = category_names(db)
-    return [serialize(movie, request, categories) for movie in db.query(Movie).order_by(Movie.id).all()]
+def films(request: Request, db: Session = Depends(get_db),
+          section: Literal["films", "series"] | None = None):
+    categories = db.query(Category).all()
+    names = {category.id: category.name for category in categories}
+    series_id = next((category.id for category in categories if category.slug == "series"), None)
+    movies = db.query(Movie).order_by(Movie.id)
+    if section is not None:
+        want_series = section == "series"
+        movies = (movie for movie in movies if (series_id in movie.parsed_category_ids) == want_series)
+    return [serialize(movie, request, names) for movie in movies]
 
 
 @router.get("/films/{film_id}")

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Река с высоты",
+    "description": "Короткое путешествие над Биверхед-Ривер: каменистые берега, извилистое русло и зелёная долина, снятые с дрона. Десять секунд тишины и широких пейзажей.",
+    "year": 2021,
+    "genre": "Природа · документальный",
+    "duration": "10 сек",
+    "rating": 8.6,
+    "posterUrl": "poster_river",
+    "videoUrl": "beaverhead_river",
+    "creator": "Cpinto23",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beaverhead-River-Drone-Shot.webm"
+  },
+  {
+    "id": 2,
+    "title": "Речное приключение",
+    "description": "Небольшой пластилиновый мультфильм Карли Мелдер. Покадровая анимация на стекле и озвученная история о речном приключении — короткий творческий эксперимент, который можно пересмотреть.",
+    "year": 2014,
+    "genre": "Мультфильм · пластилиновая анимация",
+    "duration": "25 сек",
+    "rating": 8.2,
+    "posterUrl": "poster_adventure",
+    "videoUrl": "river_adventure",
+    "creator": "Karli Melder (KarliCartoons/Ninoru)",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karli_Melder_-_River_Adventure_(2014).webm"
+  }
+]

@@ -14,7 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 
 class FilmDetailActivity : AppCompatActivity() {
-    companion object { const val EXTRA_FILM = "film" }
+    companion object {
+        const val EXTRA_FILM = "film"
+        const val EXTRA_SERIES = "series"
+    }
     private var film: Film? = null
     private lateinit var titleText: android.widget.TextView
     private lateinit var details: LinearLayout
@@ -98,7 +101,7 @@ class FilmDetailActivity : AppCompatActivity() {
         details.addView(primaryButton("▶    Смотреть") {
             startActivity(Intent(this, PlayerActivity::class.java).putExtra(EXTRA_FILM, value))
         }, LinearLayout.LayoutParams(-1, dp(52)))
-        details.addView(label("О фильме", 19f, BochkinoColors.white, bold = true).apply {
+        details.addView(label(if (intent.getBooleanExtra(EXTRA_SERIES, false)) "О сериале" else "О фильме", 19f, BochkinoColors.white, bold = true).apply {
             setPadding(0, dp(23), 0, dp(7))
         })
         details.addView(label(value.description, 15f, 0xFFE1E1E1.toInt()).apply {

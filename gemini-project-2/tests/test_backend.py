@@ -74,6 +74,27 @@ def client(db_session):
     app.dependency_overrides.clear()
 
 
+def test_android_catalog_sections(client, db_session):
+    db_session.add(Category(id=2, name="Сериалы", slug="series"))
+    assert client.get("/api/films?section=series").json() == []
+    for index, (title, categories) in enumerate([
+        ("Film", "1"), ("Series", "4, 2"), ("Legacy", ""), ("Other", "12")
+    ]):
+        db_session.add(Movie(pnr=f"{index:06d}", title=title, category_ids=categories,
+                             description="Demo", duration="10 мин", quality="HD",
+                             poster_url="/poster.jpg", banner="", mobile_poster="", movie_page_url="/video"))
+    db_session.commit()
+
+    def titles(url):
+        response = client.get(url)
+        assert response.status_code == 200
+        return [item["title"] for item in response.json()]
+
+    assert titles("/api/films?section=films") == ["Film", "Legacy", "Other"]
+    assert titles("/api/films?section=series") == ["Series"]
+    assert titles("/api/films") == ["Film", "Series", "Legacy", "Other"]
+
+
 def test_android_catalog_uses_database_and_absolute_media_urls(client, db_session):
     movie = Movie(pnr="BCDFGH", title="Demo", description="Description", duration="10 sec",
                   quality="HD", poster_url="/media/posters/demo.jpg", banner="",
